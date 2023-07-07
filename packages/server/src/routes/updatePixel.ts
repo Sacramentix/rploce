@@ -13,7 +13,7 @@ router.route({
       params: z.object({
         x: z.number().int().min(0).max(4),
         y: z.number().int().min(0).max(4),
-        color: z.string().regex(/^#[0-9A-F]{6}$/)
+        color: z.string().regex(/^[0-9A-F]{6}$/)
       })
     }
   },

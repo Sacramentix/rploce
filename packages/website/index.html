@@ -2,42 +2,71 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+  <h1>R/ploce</h1>
   <table>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td style="background-color: black"></td>
-      <td></td>
-      <td style="background-color: black"></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td style="background-color: black"></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td style="background-color: black"></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td style="background-color: black"></td>
-      <td style="background-color: black"></td>
-      <td style="background-color: black"></td>
-      <td></td>
-    </tr>
+    <tbody>
+      <tr>
+        <td tabindex="1"></td>
+        <td tabindex="1"></td>
+        <td tabindex="1"></td>
+        <td tabindex="1"></td>
+        <td tabindex="1"></td>
+      </tr>
+      <tr>
+        <td tabindex="1"></td>
+        <td tabindex="1"></td>
+        <td tabindex="1"></td>
+        <td tabindex="1"></td>
+        <td tabindex="1"></td>
+      </tr>
+      <tr>
+        <td tabindex="1"></td>
+        <td tabindex="1"></td>
+        <td tabindex="1"></td>
+        <td tabindex="1"></td>
+        <td tabindex="1"></td>
+      </tr>
+      <tr>
+        <td tabindex="1"></td>
+        <td tabindex="1"></td>
+        <td tabindex="1"></td>
+        <td tabindex="1"></td>
+        <td tabindex="1"></td>
+      </tr>
+      <tr>
+        <td tabindex="1"></td>
+        <td tabindex="1"></td>
+        <td tabindex="1"></td>
+        <td tabindex="1"></td>
+        <td tabindex="1"></td>
+      </tr>
+    </tbody>
   </table>
+  <div>
+    <label>Fill color :</label>
+    <input type="color">
+  </div>
+  <style>
+    body {
+      background: #222;
+      color: #fff;
+      font-family: monospace;
+      display: grid;
+      place-items: center;
+    }
+
+    table {
+      border-spacing: 0;
+    }
+
+    td {
+      width: 2.5em;
+      height: 2.5em;
+      border: 0.5px solid black;
+    }
+    td:is(:focus-visible, :hover) {
+      outline: 2px solid red;
+    }
+  </style>
   <script type="module" src="js/index.js"></script>
 </body>

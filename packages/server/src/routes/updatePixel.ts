@@ -1,6 +1,7 @@
 import { Response, URLPattern } from 'fets';
 import { router } from '../lib/server.js';
 import { canvas } from '../lib/canvas.js';
+import { wss } from '../index.js';
 
 const UPDATE_PIXEL_PATH = '/update/pixel/:x/:y/:color';
 
@@ -15,6 +16,11 @@ router.route({
     if (canvas[yint]![xint] != null) {
       canvas[yint]![xint] = "#" + color;
     }
-    return Response.json(canvas);
+    wss.clients.forEach(client => {
+      if (client.readyState === 1) {
+        client.send(`${x}/${y}/${"#" + color}`);
+      }
+    });
+    return;
   }
 });

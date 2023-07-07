@@ -57,6 +57,7 @@
 
     table {
       border-spacing: 0;
+      background: #fff;
     }
 
     td {
@@ -68,5 +69,80 @@
       outline: 2px solid red;
     }
   </style>
+  <script>
+    'use strict';
+
+    const $table = document.querySelector('table > tbody');
+    const $colorInput = document.querySelector('input[type="color"]');
+
+    // add on click event to change color
+    {
+      const trs = $table.children;
+
+      for (let y = 0; y < trs.length; y++) {
+        const tr = trs[y];
+        const tds = tr.children;
+        for (let x = 0; x < tds.length; x++) {
+          const td = tds[x];
+          function changeColor() {
+            td.style.backgroundColor = $colorInput.value;
+            updatePixelRemote(x,y,$colorInput.value);
+          }
+          td.addEventListener("click", ()=>{
+            changeColor();
+          });
+          td.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+              changeColor();
+            }
+          });
+        }
+      }
+    }
+    /**
+     * 
+     * @param {string} x 
+     * @param {string} y 
+     * @param {string} color 
+     */
+    function updatePixelRemote(x,y,color) {
+      const c = color.substring(1);
+      fetch(`http://localhost:3003/update/pixel/${x}/${y}/${c}`)
+        .then((res) => res.json())
+        .then(renderTable);
+    }
+
+    const renderTable = (grid) => {
+      const trs = $table.children;
+      for (let y = 0; y < trs.length; y++) {
+        const tr = trs[y];
+        const tds = tr.children;
+        for (let x = 0; x < tds.length; x++) {
+          const td = tds[x];
+          td.style.backgroundColor = grid[y][x];
+        }
+      }
+    };
+
+    const ws = new WebSocket("ws://localhost:3004");
+
+    ws.addEventListener("message", (event) => {
+      console.log("ws : " + event.data);
+      const [x,y,color] = event.data.split("/");
+      const xint = parseInt(x);
+      const yint = parseInt(y);
+      updatePixelView(xint,yint,color);
+    });
+
+    function updatePixelView(x,y,color) {
+      const td = $table.querySelector(`tr:nth-child(${y+1}) > td:nth-child(${x+1})`);
+      td.style.backgroundColor = color;
+    }
+
+    fetch('http://localhost:3003/canvas')
+      .then((res) => res.json())
+      .then(renderTable);
+
+  </script>
   <script type="module" src="js/index.js"></script>
 </body>

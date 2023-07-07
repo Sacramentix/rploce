@@ -9,7 +9,8 @@
     "exactOptionalPropertyTypes": false,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "module": "ES2022",
-    "moduleResolution": "Node16",
+    "moduleResolution": "node",// fets type definition is broken with nodenext or node16 https://github.com/microsoft/TypeScript/issues/50175
+    // by using "moduleResolution": "node" type are infered correctly
     // Prevents `Cannot write file because it would overwrite input file.` error
     "outDir": "build",
     "skipLibCheck": true
